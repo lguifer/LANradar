@@ -15,7 +15,7 @@
 ---
 
 ### 3. **How does LANradar work?**  
-LANradar uses the `nmap` tool to scan the network range you specify. It compares detected MAC addresses to a whitelist stored in a local file (`lista_mac.txt`) and logs any new or unauthorized devices.
+LANradar uses the `nmap` tool to scan the network range you specify. It compares detected MAC addresses to a whitelist stored in a local file (`registered_macs.txt`) and logs any new or unauthorized devices.
 
 ---
 
