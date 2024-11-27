@@ -1,5 +1,3 @@
----
-
 # **FAQ: LANradar**
 
 ### 1. **What is LANradar?**  
