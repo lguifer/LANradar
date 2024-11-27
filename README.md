@@ -39,7 +39,7 @@ LANradar uses the `nmap` tool to scan the network range you specify. It compares
    ```  
 3. Run the script:  
    ```bash
-   python3 LANradar.py --lan <LAN_RANGE> --time <SCAN_INTERVAL> [--domain <DOMAIN>] [--log <SYSLOG_IP>]
+   python3 lanradar.py --lan <LAN_RANGE> --time <SCAN_INTERVAL> [--domain <DOMAIN>] [--log <SYSLOG_IP>]
    ```  
 
 ---
