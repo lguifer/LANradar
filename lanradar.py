@@ -28,7 +28,7 @@ def get_arguments():
 
 def send_log_to_server(line, server_ip):
 	if server_ip:
-		command = f"echo -n 'hostCDK mac_finder[1]: {line}' | ncat -t {server_ip} 514"
+		command = f"echo -n 'host_name LANradar[1]: {line}' | ncat -t {server_ip} 514"
 		# print(command)
 		os.system(command)
 
