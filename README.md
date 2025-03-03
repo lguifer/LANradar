@@ -9,7 +9,7 @@ Este FAQ responde a las preguntas frecuentes sobre el proyecto LAN Radar V2, que
 ---
 
 ### 1. ¿Qué es LAN Radar V2?
-LAN Radar V2 es un script en Python diseñado para escanear la red local. Extrae direcciones IP a partir de los logs de Zeek, ejecuta un escaneo rápido y un escaneo detallado usando nmap, y clasifica los dispositivos basándose en información como MAC, sistema operativo, puertos abiertos y vulnerabilidades.
+LAN Radar V2 es un script en Python diseñado para escanear la red local. Extrae direcciones IP a partir de los logs de Zeek, ejecuta un escaneo rápido y un escaneo detallado usando nmap, y clasifica los dispositivos basándose en información como MAC, sistema operativo y puertos abiertos.
 
 ---
 
