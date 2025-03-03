@@ -1,70 +1,78 @@
-# **FAQ: LANradar**
+# FAQ - LAN Radar V2
 
-### 1. **What is LANradar?**  
-**LANradar** is a powerful tool for network administrators to monitor their LAN (Local Area Network). It scans for connected devices, detects new or unauthorized MAC addresses, and logs activity for enhanced network security.
+Este FAQ responde a las preguntas frecuentes sobre el proyecto LAN Radar V2, que incluye los siguientes archivos:
 
----
-
-### 2. **What are the main features of LANradar?**  
-- **LAN Scanning:** Detect devices connected to your network with periodic scans.  
-- **MAC Address Monitoring:** Identify and track new or unauthorized MAC addresses.  
-- **Logging & Alerts:** Log detected changes to a file and optionally send syslog alerts to a specified server.  
-- **Customization:** Set scan intervals, define a target LAN range, and specify domain names for devices.  
-- **Cross-Platform:** Compatible with Linux and other Unix-based systems.  
+- **lanradar-v2.py:** El script principal para escanear y clasificar dispositivos en la red.
+- **CHANGELOG:** Historial de cambios y mejoras entre versiones.
+- **requirements.txt:** Lista de dependencias necesarias para ejecutar el script.
 
 ---
 
-### 3. **How does LANradar work?**  
-LANradar uses the `nmap` tool to scan the network range you specify. It compares detected MAC addresses to a whitelist stored in a local file (`registered_macs.txt`) and logs any new or unauthorized devices.
+### 1. ¿Qué es LAN Radar V2?
+LAN Radar V2 es un script en Python diseñado para escanear la red local. Extrae direcciones IP a partir de los logs de Zeek, ejecuta un escaneo rápido y un escaneo detallado usando nmap, y clasifica los dispositivos basándose en información como MAC, sistema operativo, puertos abiertos y vulnerabilidades.
 
 ---
 
-### 4. **What are the prerequisites to run LANradar?**  
-- Python 3.x  
-- `nmap` library (`python-nmap`)  
-- Administrator privileges (required for some network operations)  
-- Optionally, `ncat` for sending logs via syslog  
+### 2. ¿Qué archivos componen este proyecto?
+- **lanradar-v2.py:** Contiene toda la lógica del escaneo, clasificación y registro de dispositivos.
+- **CHANGELOG:** Documenta las diferencias y mejoras realizadas respecto a versiones anteriores.
+- **requirements.txt:** Especifica las dependencias externas (actualmente `python-nmap`) necesarias para ejecutar el script.
 
 ---
 
-### 5. **How do I install and run LANradar?**  
-1. Clone this repository:  
-   ```bash
-   git clone https://github.com/yourusername/LANradar.git
-   cd LANradar
-   ```  
-2. Install dependencies:  
+### 3. ¿Cómo instalo y configuro el proyecto?
+1. **Requisitos previos:**
+   - Tener instalado Python 3.
+   - Instalar nmap en tu sistema, ya que el script lo utiliza para el escaneo.
+2. **Instalación de dependencias:**
+   Ejecuta el siguiente comando en la raíz del proyecto:
    ```bash
    pip install -r requirements.txt
-   ```  
-3. Run the script:  
-   ```bash
-   python3 lanradar.py --lan <LAN_RANGE> --time <SCAN_INTERVAL> [--domain <DOMAIN>] [--log <SYSLOG_IP>]
-   ```  
+   ```
+3. **Configuración:**
+   Puedes ajustar parámetros como la ruta al log de Zeek (`--zeek_log`), el archivo de registro IP-MAC (`--registry`), opciones adicionales para nmap (`--nmap_options`), y la configuración de logging (`--log_server`, `--log-type`, `--debug`).
 
 ---
 
-### 6. **What happens when an unauthorized device is detected?**  
-LANradar will:  
-- Log the device's MAC address, IP, and hostname to a local file (`unauthorized.log`).  
-- Optionally send an alert to a syslog server if the `--log` option is specified.  
+### 4. ¿Cómo ejecuto el script?
+Para ejecutar LAN Radar V2, utiliza la línea de comandos:
+```bash
+./lanradar-v2.py [opciones]
+```
+o
+```bash
+python lanradar-v2.py [opciones]
+```
+Por ejemplo, para ejecutar el script con un log de Zeek en la ubicación por defecto:
+```bash
+python lanradar-v2.py --zeek_log /opt/zeek/logs/current/conn.log
+```
 
 ---
 
-### 7. **How can I whitelist a MAC address?**  
-Add the MAC address to `lista_mac.txt` in the following format:  
-```
-<MAC_ADDRESS> <Device_Name>
-```  
-Example:  
-```
-00:11:22:33:44:55 Printer
-```
+### 5. ¿Qué opciones de logging están disponibles?
+El script permite configurar el logging en dos formatos:
+- **Syslog:** Utiliza el separador `||` en los mensajes de log.
+- **JSON:** Los mensajes se formatean como objetos JSON.
+Puedes especificar el formato con el argumento `--log-type` y, opcionalmente, enviar los logs a un servidor remoto usando `--log_server`.
 
-### 8. **Who can benefit from LANradar?**  
-LANradar is designed for:  
-- Network administrators managing small to medium-sized networks.  
-- Security professionals looking to detect unauthorized devices.  
-- Anyone who wants greater visibility into their home or office network.  
+---
+
+### 6. ¿Cómo clasifica LAN Radar V2 los dispositivos?
+El proceso de clasificación se realiza en dos pasos:
+1. **Escaneo Rápido y Detallado:**  
+   Se realiza un quick scan para detectar puertos abiertos y, si se encuentran, un escaneo detallado para obtener información de versión, sistema operativo y vulnerabilidades.
+2. **Clasificación:**  
+   Con la información obtenida (incluyendo la dirección MAC, puertos y servicios), el script utiliza una función de clasificación para identificar el tipo de dispositivo (por ejemplo, Router/Switch, Servidor Linux-Unix, Equipo Windows, etc.).
+
+---
+
+### 7. ¿Dónde encuentro el historial de cambios?
+Consulta el archivo **CHANGELOG** para conocer las diferencias entre las versiones (por ejemplo, mejoras y cambios implementados en la V2 respecto a la V1).
+
+---
+
+### 8. ¿A qué sistemas es compatible LAN Radar V2?
+El script está escrito en Python y es compatible con sistemas que cuenten con Python 3 y nmap instalados. Está diseñado principalmente para sistemas Unix-like, dado que utiliza rutas y configuraciones propias de este tipo de sistemas (por ejemplo, `/var/log/nac/nac.log`).
 
 ---
